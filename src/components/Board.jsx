@@ -2,7 +2,8 @@ import Square from "./Square";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Board({ squares, onSquareClick, winningLine }) {
-  function renderSquare(i) {
+  function renderSquare(row, col) {
+    const i = row * 3 + col;
     const isWinningSquare = winningLine?.includes(i);
     return (
       <Square
@@ -20,7 +21,9 @@ export default function Board({ squares, onSquareClick, winningLine }) {
     <div className="relative">
       {/* Bảng 3x3 */}
       <div className="grid grid-cols-3 gap-2 bg-gray-200 p-2 rounded-2xl shadow-xl">
-        {Array.from({ length: 9 }, (_, i) => renderSquare(i))}
+        {[0, 1, 2].map((row) =>
+          [0, 1, 2].map((col) => renderSquare(row, col))
+        )}
       </div>
 
       {/* Hiệu ứng đường nối thắng */}
@@ -40,8 +43,7 @@ export default function Board({ squares, onSquareClick, winningLine }) {
                 bg-[length:200%_200%] animate-shine 
                 shadow-[0_0_20px_#34d399] 
                 rounded-full origin-left ${lineInfo}`}
-            />
-
+          />
         )}
       </AnimatePresence>
     </div>
@@ -66,7 +68,7 @@ function getWinningLineStyle(line) {
     // chéo
     "0,4,8": "top-[16%] left-[16.5%] w-[95%] h-[6px] rotate-45 origin-left",
     "2,4,6": "top-[83%] left-[17%] w-[95%] h-[6px] -rotate-45 origin-left",
-    };
+  };
 
   return `${base} ${positions[line.join(",")] || ""}`;
 }

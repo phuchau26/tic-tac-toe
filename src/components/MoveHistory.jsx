@@ -19,7 +19,7 @@ export default function MoveHistory({
         ) : (
           <button
             onClick={() => onJumpTo(move)}
-            className="text-sm text-gray-700 hover:text-blue-600 hover:underline transition-colors"
+            className="text-sm bg-red-500 text-gray-700 hover:text-blue-600 hover:underline transition-colors"
           >
             {desc}
           </button>
@@ -31,14 +31,14 @@ export default function MoveHistory({
   const orderedMoves = moveOrderAsc ? moves : [...moves].reverse();
 
   return (
-    <div className="mt-6 text-left">
+    <div className="mt-6 text-left flex justify-center items-center flex-col ml-3">
       <button
         onClick={onToggleOrder}
-        className="mb-3 px-3 py-1.5 bg-blue-600 text-white rounded-lg shadow-sm hover:bg-blue-700 transition-all"
+        className="mb-3 px-3 py-1.5 bg-blue-600 text-black rounded-lg shadow-sm hover:bg-blue-700 transition-all"
       >
         Toggle Order ({moveOrderAsc ? "Asc" : "Desc"})
       </button>
-      <ol className="pl-4 space-y-1">{orderedMoves}</ol>
+      <ol className="flex flex-col justify-center items-center">{orderedMoves}</ol>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Board from "./components/Board";
 import MoveHistory from "./components/MoveHistory";
+import Fireworks from "./components/Firework"; 
 
 export default function App() {
   const [history, setHistory] = useState([
@@ -46,13 +47,15 @@ export default function App() {
     : `Next player: ${xIsNext ? "X" : "O"}`;
 
   return (
-    <div className="min-h-screen min-w-screen bg-gradient-to-br from-gray-100 to-gray-300 flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen min-w-screen bg-gradient-to-br from-gray-100 to-gray-300 flex flex-col items-center justify-center p-6 relative">
       <h1 className="text-4xl font-extrabold mb-8 text-gray-800 tracking-tight">
         Tic Tac Toe
       </h1>
 
+      {/* 🔥 Thêm hiệu ứng khi có người thắng */}
+      <Fireworks winner={winner} />
+
       <div className="flex flex-col md:flex-row gap-10 bg-white shadow-2xl rounded-3xl p-8">
-        {/* Bàn cờ */}
         <div className="flex flex-col items-center">
           <Board
             squares={currentSquares}
@@ -62,8 +65,7 @@ export default function App() {
           <div className="mt-4 text-lg font-medium text-gray-700">{status}</div>
         </div>
 
-        {/* Lịch sử lượt đi */}
-        <div className="flex flex-col justify-between border-l border-gray-300 pl-8">
+        <div className="flex flex-col border-l border-gray-300">
           <MoveHistory
             history={history}
             currentMove={currentMove}
